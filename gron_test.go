@@ -45,6 +45,11 @@ func TestGronNextAfter(t *testing.T) {
 			expected:   time.Date(2026, 1, 1, 3, 0, 0, 0, time.UTC),
 		},
 		{
+			expression: "0 0 * * *",
+			after:      time.Date(2026, 1, 1, 2, 1, 0, 0, time.UTC),
+			expected:   time.Date(2026, 1, 2, 0, 0, 0, 0, time.UTC),
+		},
+		{
 			expression: "0 0 21 * *",
 			after:      time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC),
 			expected:   time.Date(2026, 1, 21, 0, 0, 0, 0, time.UTC),

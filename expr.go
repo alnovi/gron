@@ -101,7 +101,7 @@ func (x *Expr) NextTime(date time.Time) time.Time {
 			nextHour, ok := findNext(partHours, x.hours, candidate.Hour())
 			if !ok {
 				// Переходим на следующий день
-				candidate = candidate.AddDate(0, 0, 1).Truncate(24 * time.Hour) // nolint:mnd
+				candidate = time.Date(candidate.Year(), candidate.Month(), candidate.Day()+1, 0, 0, 0, 0, candidate.Location())
 				continue
 			}
 			candidate = time.Date(candidate.Year(), candidate.Month(), candidate.Day(), nextHour, 0, 0, 0, candidate.Location())
@@ -112,7 +112,7 @@ func (x *Expr) NextTime(date time.Time) time.Time {
 			nextMinute, ok := findNext(partMinutes, x.minutes, candidate.Minute())
 			if !ok {
 				// Переходим к следующему часу
-				candidate = candidate.Add(time.Hour).Truncate(time.Hour)
+				candidate = time.Date(candidate.Year(), candidate.Month(), candidate.Day(), candidate.Hour()+1, 0, 0, 0, candidate.Location())
 				continue
 			}
 			candidate = time.Date(candidate.Year(), candidate.Month(), candidate.Day(), candidate.Hour(), nextMinute, 0, 0, candidate.Location())
